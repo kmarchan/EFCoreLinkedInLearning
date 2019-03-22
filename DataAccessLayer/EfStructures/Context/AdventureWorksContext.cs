@@ -1,8 +1,9 @@
 ﻿using System;
+using DataAccessLayer.EfStructures.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace DataAccessLayer.EfStructures.Entities
+namespace DataAccessLayer.EfStructures.Context
 {
     public partial class AdventureWorksContext : DbContext
     {

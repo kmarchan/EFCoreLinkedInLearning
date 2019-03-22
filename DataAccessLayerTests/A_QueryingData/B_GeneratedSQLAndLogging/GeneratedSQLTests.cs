@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using DataAccessLayer.EfStructures.Context;
+using DataAccessLayer.EfStructures.Entities;
 using DataAccessLayer.EfStructures.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -24,12 +25,19 @@ namespace DataAccessLayerTests.A_QueryingData.B_GeneratedSQLAndLogging
         [Fact]
         public void ShouldGetSqlWithSimpleQuery()
         {
+            IQueryable<Product> query = _context.Product;
+            string generatedSql = query.ToSql();
+            var foo = "foo";
         }
 
-        //TODO: Add Logging
         [Fact]
         public void GetGeneratedSqlFromLinqStatement()
         {
+            var query = _context.Product.Where(x => x.MakeFlag ?? true)
+                .OrderBy(x => x.Name)
+                .Skip(25).Take(25)
+                .Include(x=>x.TransactionHistory);
+            var result = query.ToList();
         }
 
     }

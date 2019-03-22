@@ -24,14 +24,26 @@ namespace DataAccessLayerTests.A_QueryingData.C_FilterSortAndPage
         [Fact]
         public void ShouldFindWithPrimaryKey()
         {
+            Product prod = _context.Product.Find(3);
+            Assert.Equal("BB Ball Bearing", prod.Name,ignoreCase:true);
+            //This will not execute a query, since entity is already tracked
+            Product prod2 = _context.Product.Find(3);
+            Assert.Equal("BB Ball Bearing", prod.Name, ignoreCase: true);
         }
         [Fact]
         public void ShouldReturnNullIfPrimaryKeyIsNotFound()
         {
+            Product prod = _context.Product.Find(-1);
+            Assert.Null(prod);
         }
         [Fact]
         public void FilteringResultsWithFindComplexKey()
         {
+
+            ProductVendor productVendor = _context.ProductVendor.Find(2, 1688);
+            Assert.Equal(5, productVendor.MaxOrderQty);
+            Assert.Equal(3, productVendor.OnOrderQty);
+			
         }
 
         [Fact]
